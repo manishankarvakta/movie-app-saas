@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { IoMenuOutline, IoPersonOutline } from "react-icons/io5";
 // import * as Icons from "@heroicons/react";
+import MovieDataApi from "../Utility/MovieDataApi";
+import { NavDropdown } from "react-bootstrap";
+
 function Nav() {
+  const [genre, setGenre] = useState([]);
+  const { getMovieGenre } = MovieDataApi();
+
+  useEffect(() => {
+    getMovieGenre(setGenre);
+  }, [getMovieGenre]);
+  // console.log(genre.genres);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark">
       <a className="navbar-brand" href="index.html">
@@ -18,20 +30,23 @@ function Nav() {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span className="navbar-toggler-icon"></span>
+        <IoMenuOutline />
       </button>
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav m-auto">
           <li className="nav-item active">
-            <a className="nav-link" href="index.html">
+            <Link to="/" className="nav-link" title="Home">
+              HOME{" "}
+            </Link>
+            {/* <a className="nav-link" href="index.html">
               Home <span className="sr-only">(current)</span>
-            </a>
+            </a> */}
           </li>
           <li className="nav-item dropdown" id="genre">
-            <a
+            {/* <Link
               className="nav-link dropdown-toggle"
-              href="#"
+              to="#"
               id="navbarDropdown"
               role="button"
               data-toggle="dropdown"
@@ -39,7 +54,24 @@ function Nav() {
               aria-expanded="false"
             >
               Genre
-            </a>
+            </Link> */}
+            <NavDropdown title="Genre" id="basic-nav-dropdown">
+              {genre?.genres?.length > 0 &&
+                genre.genres.map((g) => (
+                  <NavDropdown.Item href={`/genre/${g.id}`} key={g.id}>
+                    {g.name}
+                  </NavDropdown.Item>
+                ))}
+              {/* <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                Another action
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4">
+                Separated link
+              </NavDropdown.Item> */}
+            </NavDropdown>
           </li>
 
           <li className="nav-item">
@@ -62,14 +94,14 @@ function Nav() {
               <li className="nav-item">
               </li>
           </ul> --> */}
-        <a className="nav-link btn btn-outline-success" href="#">
-          <i className="fa fa-user fa-fw"> </i> User Login
-        </a>
+        <Link className=" btn btn-outline-success" to="/login">
+          {/* <i className="fa fa-user fa-fw"> </i> */}
+          <IoPersonOutline size={25} className="mr-2" />
+          User Login
+        </Link>
       </div>
     </nav>
   );
 }
-
-Nav.propTypes = {};
 
 export default Nav;

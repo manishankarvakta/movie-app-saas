@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { IoSearchOutline, IoArrowForwardSharp } from "react-icons/io5";
 
 function Search(props) {
   return (
@@ -9,12 +9,16 @@ function Search(props) {
           <div className="search-wrapper">
             <h1 className="text-center">Find Movies, TV Shows and More</h1>
             <div className="center">
-              <form className="form-inline row form-row d-flex justify-content-center">
+              <form
+                style={{ flexWrap: "nowrap" }}
+                className="form-inline row form-row d-flex flex-row justify-content-center"
+              >
                 <div className="form-group">
                   <div className="input-group">
                     <div className="input-group-prepend">
                       <div className="input-group-text">
-                        <i className="fa fa-search fa-fw"> </i>
+                        {/* <i className="fa fa-search fa-fw"> </i> */}
+                        <IoSearchOutline size={46} />
                       </div>
                     </div>
                     <input
@@ -26,7 +30,8 @@ function Search(props) {
                   </div>
                 </div>
                 <button type="submit" id="search" className="btn btn-success">
-                  <i className="fa fa-arrow-right"></i>
+                  {/* <i className="fa fa-arrow-right"></i> */}
+                  <IoArrowForwardSharp size={30} />
                 </button>
               </form>
             </div>
@@ -36,7 +41,5 @@ function Search(props) {
     </div>
   );
 }
-
-Search.propTypes = {};
 
 export default Search;
